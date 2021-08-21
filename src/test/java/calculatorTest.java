@@ -1,20 +1,25 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 
 public class calculatorTest {
-    calculator calc=null;
-    calculatorService service = mock(calculatorService.class);
-    @BeforeEach
+    //calculator calc=null;
+   // calculatorService service = mock(calculatorService.class);
+   /* @BeforeEach
     public void objectCreation()
     {
 
         calc=new calculator(service);
     }
-
+*/
+    @Mock
+    calculatorService service=mock(calculatorService.class);
+    @InjectMocks
+    calculator calc=new calculator(service);
     @Test
     public void toCalculateAdditionOfTwoNumbers()
     {
@@ -35,6 +40,7 @@ public class calculatorTest {
     {
         when(service.product(3,4)).thenReturn(12);
         assertEquals(12,calc.product(3,4));
+        verify(service).product(3,4);
     }
 
    @Test
@@ -42,5 +48,6 @@ public class calculatorTest {
    {
        when(service.division(3,4)).thenReturn(1);
        assertEquals(1,calc.division(3,4));
+
    }
 }
